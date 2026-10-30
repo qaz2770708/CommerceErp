@@ -1,0 +1,195 @@
+{
+  "passed": true,
+  "total": 47,
+  "failed": 0,
+  "results": [
+    {
+      "name": "仓储账号可配置单店铺，候选、分页总数、发货队列均隔离",
+      "passed": true
+    },
+    {
+      "name": "仓储详情地址及回传重试不可跨店访问",
+      "passed": true
+    },
+    {
+      "name": "跨店出库动作拒绝：split",
+      "passed": true
+    },
+    {
+      "name": "跨店出库动作拒绝：pick",
+      "passed": true
+    },
+    {
+      "name": "跨店出库动作拒绝：scan",
+      "passed": true
+    },
+    {
+      "name": "跨店出库动作拒绝：reset",
+      "passed": true
+    },
+    {
+      "name": "跨店出库动作拒绝：pack",
+      "passed": true
+    },
+    {
+      "name": "跨店出库动作拒绝：waybill",
+      "passed": true
+    },
+    {
+      "name": "跨店出库动作拒绝：void",
+      "passed": true
+    },
+    {
+      "name": "跨店出库动作拒绝：dispatch",
+      "passed": true
+    },
+    {
+      "name": "配单和合单检查每个订单与出库单",
+      "passed": true
+    },
+    {
+      "name": "单店仓储可以保存本店地址及配单",
+      "passed": true
+    },
+    {
+      "name": "共享仓余额不按店铺伪拆分，含合单的流水按店铺隔离",
+      "passed": true
+    },
+    {
+      "name": "共享配置写入及全库核对要求全店授权",
+      "passed": true
+    },
+    {
+      "name": "只读角色的地址、出库列表、历史与回传信息在服务端隐藏",
+      "passed": true
+    },
+    {
+      "name": "财务分页、账单、成本及汇总均按本店过滤",
+      "passed": true
+    },
+    {
+      "name": "账单原文、行详情、订单成本不能通过ID越权读取",
+      "passed": true
+    },
+    {
+      "name": "跨店账单预览导入作废及行匹配被拒绝",
+      "passed": true
+    },
+    {
+      "name": "跨店费用和历史出库成本写入被拒绝",
+      "passed": true
+    },
+    {
+      "name": "导出包只在包含的全部订单均获授权时可见和下载",
+      "passed": true
+    },
+    {
+      "name": "本店财务可创建导出包并幂等重试",
+      "passed": true
+    },
+    {
+      "name": "自动重新匹配只修改本店未匹配流水",
+      "passed": true
+    },
+    {
+      "name": "Warehouse 单店铺桌面模型可完整初始化",
+      "passed": true
+    },
+    {
+      "name": "Finance 单店铺桌面模型可完整初始化",
+      "passed": true
+    },
+    {
+      "name": "Observer 单店铺桌面模型可完整初始化",
+      "passed": true
+    },
+    {
+      "name": "任务接口要求账号登录",
+      "passed": true
+    },
+    {
+      "name": "任务列表与汇总按店铺及模块权限过滤",
+      "passed": true
+    },
+    {
+      "name": "跨店任务详情和重试不能通过直接接口访问",
+      "passed": true
+    },
+    {
+      "name": "角色不能通过任务重试绕过原业务权限",
+      "passed": true
+    },
+    {
+      "name": "授权任务重试幂等、留痕且不重做订单或库存",
+      "passed": true
+    },
+    {
+      "name": "仓储能重试共享库存事件但客服不可读取",
+      "passed": true
+    },
+    {
+      "name": "任务中心发货重试沿用原发货幂等与操作历史",
+      "passed": true
+    },
+    {
+      "name": "任务详情不返回原始载荷回执或收件信息",
+      "passed": true
+    },
+    {
+      "name": "任务筛选和错误类型输入有确定响应",
+      "passed": true
+    },
+    {
+      "name": "任务账号改权后旧会话不能重试",
+      "passed": true
+    },
+    {
+      "name": "审计查询和导出仅管理员可用",
+      "passed": true
+    },
+    {
+      "name": "审计分页使用固定快照，新增事件不挤动旧页",
+      "passed": true
+    },
+    {
+      "name": "审计可组合账号动作资源时间筛选",
+      "passed": true
+    },
+    {
+      "name": "非法审计参数返回输入错误",
+      "passed": true
+    },
+    {
+      "name": "审计导出遵循筛选快照、附带校验摘要并记录原因",
+      "passed": true
+    },
+    {
+      "name": "审计导出超过一万条拒绝且不提交成功记录",
+      "passed": true
+    },
+    {
+      "name": "仓储质检与财务退款不可操作跨店售后",
+      "passed": true
+    },
+    {
+      "name": "财务范围变更撤销旧会话，新会话不能下载旧店导出包",
+      "passed": true
+    },
+    {
+      "name": "本机身份检查不创建数据库也不改写已有文件",
+      "passed": true
+    },
+    {
+      "name": "管理员恢复拒绝错误库身份及普通账号，原会话不受影响",
+      "passed": true
+    },
+    {
+      "name": "本机恢复管理员会撤销全部会话并强制改密",
+      "passed": true
+    },
+    {
+      "name": "管理员恢复没有网络入口",
+      "passed": true
+    }
+  ]
+}

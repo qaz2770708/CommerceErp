@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "total": 22,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "草稿不改库存且请求重放只建一单",
+      "passed": true
+    },
+    {
+      "name": "正负调整正确入账，重复审核原请求只入账一次",
+      "passed": true
+    },
+    {
+      "name": "盘点含良品与隔离实盘，零差异可留核对记录",
+      "passed": true
+    },
+    {
+      "name": "隔离转良品、报损、退供均保留数量去向",
+      "passed": true
+    },
+    {
+      "name": "负库存、超额隔离、数量精度与重复SKU被拒绝",
+      "passed": true
+    },
+    {
+      "name": "冻结量和预占量不能被盘亏或调整占用",
+      "passed": true
+    },
+    {
+      "name": "库存变化和隔离变化均使旧盘点失效",
+      "passed": true
+    },
+    {
+      "name": "草稿更正刷新版本，作废与已审核修改受保护",
+      "passed": true
+    },
+    {
+      "name": "多行中途故障整单余额流水事件回滚，原键恢复成功",
+      "passed": true
+    },
+    {
+      "name": "冲销生成反向草稿，原单流水保留且只允许一次冲销",
+      "passed": true
+    },
+    {
+      "name": "隔离处置冲销恢复原隔离余额并回退良品",
+      "passed": true
+    },
+    {
+      "name": "并发审核共享旧版本库存只允许一单成功",
+      "passed": true
+    },
+    {
+      "name": "冲销不能减少后来已冻结的库存",
+      "passed": true
+    },
+    {
+      "name": "分页筛选、单号唯一、变更操作号内容冲突",
+      "passed": true
+    },
+    {
+      "name": "9到10升级不改原库存、身份和审核配置，重复打开无变化",
+      "passed": true
+    },
+    {
+      "name": "历史退货隔离库存处置及冲销保留售后流水",
+      "passed": true
+    },
+    {
+      "name": "仅有隔离流水的商品禁止改单位或组合结构，停用后不能转良品",
+      "passed": true
+    },
+    {
+      "name": "两个冲销草稿只有一个可入账，原单永不重复冲销",
+      "passed": true
+    },
+    {
+      "name": "HTTP仓储建单不能审核、观察员不能写，审核员不能制单",
+      "passed": true
+    },
+    {
+      "name": "HTTP独立审核真实账号入账且原请求重放幂等",
+      "passed": true
+    },
+    {
+      "name": "HTTP管理员不能审核自己创建或修改的单据",
+      "passed": true
+    },
+    {
+      "name": "HTTP不同账号不能接管原审核操作号",
+      "passed": true
+    }
+  ]
+}

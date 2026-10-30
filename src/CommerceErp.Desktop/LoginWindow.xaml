@@ -1,0 +1,11 @@
+<Window x:Class="CommerceErp.Desktop.LoginWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="登录 Commerce ERP" Width="540" Height="610" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#F4F7FC" FontFamily="Microsoft YaHei UI">
+ <Grid Margin="32" Background="#F4F7FC"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+ <StackPanel><TextBlock x:Name="Heading" Text="登录工作区" FontSize="26" FontWeight="SemiBold" Foreground="#153052"/><TextBlock x:Name="ConnectionText" Margin="0,10,0,18" Foreground="#63758C" TextWrapping="Wrap"/></StackPanel>
+ <StackPanel Grid.Row="1"><TextBlock Text="账号"/><TextBox x:Name="UsernameBox" Margin="0,6,0,14"/>
+ <TextBlock x:Name="DisplayLabel" Text="显示名称（首次建立管理员时填写）"/><TextBox x:Name="DisplayBox" Text="管理员" Margin="0,6,0,14"/>
+ <TextBlock x:Name="PasswordLabel" Text="密码"/><PasswordBox x:Name="PasswordBox" Padding="9" Margin="0,6,0,14"/>
+ <TextBlock x:Name="NewPasswordLabel" Text="新密码（12–128 个字符）" Visibility="Collapsed"/><PasswordBox x:Name="NewPasswordBox" Padding="9" Margin="0,6,0,14" Visibility="Collapsed"/>
+ <TextBlock x:Name="StatusText" Text="密码不会保存在客户端配置或待重试记录中。" TextWrapping="Wrap" Foreground="#37628D" LineHeight="22"/></StackPanel>
+ <Button Grid.Row="2" x:Name="SubmitButton" Content="登录" HorizontalAlignment="Right" IsDefault="True" Click="Submit_Click"/>
+ </Grid>
+</Window>

@@ -1,0 +1,16 @@
+{
+  "generatedAtUtc": "2026-10-30T11:31:28.4566132+00:00",
+  "readOnly": true,
+  "runtime": "Detected",
+  "desktopRuntime10": true,
+  "aspNetRuntime10": true,
+  "windowsServiceStatus": "NotInstalled",
+  "sqlTestConnectionConfigured": false,
+  "sqlIdentityProbe": "NotConfigured",
+  "sqlSchema": null,
+  "sqlIntegration": "NotExecutedByPreflight",
+  "sqlUpgradeValidation": "NotExecutedByPreflight",
+  "lanHttpsValidation": "NotExecutedByPreflight",
+  "serviceAccountValidation": "NotExecutedByPreflight",
+  "productionCapacityAccepted": false
+}

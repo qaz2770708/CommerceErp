@@ -1,0 +1,199 @@
+{
+  "passed": true,
+  "total": 48,
+  "failed": 0,
+  "results": [
+    {
+      "name": "连接令牌不能代替账号登录",
+      "passed": true
+    },
+    {
+      "name": "首次管理员入口仅能成功一次",
+      "passed": true
+    },
+    {
+      "name": "密码和会话令牌只保存哈希",
+      "passed": true
+    },
+    {
+      "name": "最后一个管理员不能停用或降级",
+      "passed": true
+    },
+    {
+      "name": "CustomerService 临时密码只能改密不能进入业务",
+      "passed": true
+    },
+    {
+      "name": "CustomerService 修改密码立即撤销旧会话",
+      "passed": true
+    },
+    {
+      "name": "Warehouse 临时密码只能改密不能进入业务",
+      "passed": true
+    },
+    {
+      "name": "Warehouse 修改密码立即撤销旧会话",
+      "passed": true
+    },
+    {
+      "name": "Finance 临时密码只能改密不能进入业务",
+      "passed": true
+    },
+    {
+      "name": "Finance 修改密码立即撤销旧会话",
+      "passed": true
+    },
+    {
+      "name": "Observer 临时密码只能改密不能进入业务",
+      "passed": true
+    },
+    {
+      "name": "Observer 修改密码立即撤销旧会话",
+      "passed": true
+    },
+    {
+      "name": "CustomerService 读取权限 /api/finance/orders",
+      "passed": true
+    },
+    {
+      "name": "CustomerService 读取权限 /api/inventory",
+      "passed": true
+    },
+    {
+      "name": "Warehouse 读取权限 /api/inventory",
+      "passed": true
+    },
+    {
+      "name": "Warehouse 读取权限 /api/finance/orders",
+      "passed": true
+    },
+    {
+      "name": "Finance 读取权限 /api/finance/orders",
+      "passed": true
+    },
+    {
+      "name": "Finance 读取权限 /api/warehouse/shipments",
+      "passed": true
+    },
+    {
+      "name": "Observer 读取权限 /api/finance/orders",
+      "passed": true
+    },
+    {
+      "name": "Observer 读取权限 /api/inventory",
+      "passed": true
+    },
+    {
+      "name": "非管理员不能管理账号或查看访问审计",
+      "passed": true
+    },
+    {
+      "name": "只读角色不能通过直接 HTTP 补货",
+      "passed": true
+    },
+    {
+      "name": "仓储角色可补货并以原操作号幂等重试",
+      "passed": true
+    },
+    {
+      "name": "其他账号不能接管已归属的操作号",
+      "passed": true
+    },
+    {
+      "name": "操作标识大小写不能绕过账号归属",
+      "passed": true
+    },
+    {
+      "name": "重复及错误类型字段返回输入错误",
+      "passed": true
+    },
+    {
+      "name": "订单列表分页与总数按授权店铺过滤",
+      "passed": true
+    },
+    {
+      "name": "跨店铺详情导入修改均拒绝",
+      "passed": true
+    },
+    {
+      "name": "初始数据和样例按店铺过滤",
+      "passed": true
+    },
+    {
+      "name": "售后订单候选与详情按店铺过滤",
+      "passed": true
+    },
+    {
+      "name": "客户端伪造操作人被登录身份替换",
+      "passed": true
+    },
+    {
+      "name": "售后列表与单据详情隔离店铺",
+      "passed": true
+    },
+    {
+      "name": "跨店铺创建售后被拒绝",
+      "passed": true
+    },
+    {
+      "name": "客户端账号绑定阻止跨人重试",
+      "passed": true
+    },
+    {
+      "name": "限制店铺的客服可完整初始化桌面视图模型",
+      "passed": true
+    },
+    {
+      "name": "账号更新使用版本控制并保留修改原因",
+      "passed": true
+    },
+    {
+      "name": "权限修改后的旧会话立即失效",
+      "passed": true
+    },
+    {
+      "name": "数据库事务内再次检查会话撤销",
+      "passed": true
+    },
+    {
+      "name": "停用账号撤销会话并拒绝再次登录",
+      "passed": true
+    },
+    {
+      "name": "管理员重置密码撤销会话且要求再次改密",
+      "passed": true
+    },
+    {
+      "name": "会话过期后不能访问业务",
+      "passed": true
+    },
+    {
+      "name": "连续五次错误密码锁定账号",
+      "passed": true
+    },
+    {
+      "name": "店铺及仓库范围必须来自现有主数据",
+      "passed": true
+    },
+    {
+      "name": "未声明策略的接口默认拒绝",
+      "passed": true
+    },
+    {
+      "name": "业务异常回滚时不提交账号审计或操作归属",
+      "passed": true
+    },
+    {
+      "name": "访问审计记录成功和拒绝且不含密码令牌",
+      "passed": true
+    },
+    {
+      "name": "退出登录后会话不可复用",
+      "passed": true
+    },
+    {
+      "name": "登录入口按来源 IP 限流",
+      "passed": true
+    }
+  ]
+}

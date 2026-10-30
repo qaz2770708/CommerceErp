@@ -1,0 +1,1 @@
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><ProjectReference Include="../../src/CommerceErp.Infrastructure/CommerceErp.Infrastructure.csproj"/><Content Include="../Fixtures/stage4-v3.db" Link="Fixtures/stage4-v3.db" CopyToOutputDirectory="PreserveNewest"/></ItemGroup></Project>

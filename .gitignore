@@ -1,0 +1,43 @@
+# Build output
+**/bin/
+**/obj/
+/app/
+/dist/
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Local runtime state and private configuration
+**/data/
+**/business-data/
+**/server-data/
+**/profiles/
+**/private/
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+!tests/Fixtures/stage2-v1.db
+!tests/Fixtures/stage3-v2.db
+!tests/Fixtures/stage4-v3.db
+!tests/Fixtures/stage5-v4.db
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.pem
+*.key
+**/pending-commands.json
+**/pending-account.txt
+**/connection.json
+**/client-connection.json
+**/access-token.txt
+**/sql-connection.txt
+/deploy/server.json
+/SHA256SUMS.txt
+
+# Large generated UI evidence remains in release artifacts
+/verification/ui/
+/verification/master-ui/

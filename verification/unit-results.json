@@ -1,0 +1,147 @@
+{
+  "passed": true,
+  "total": 35,
+  "failed": 0,
+  "results": [
+    {
+      "name": "四平台正常订单统一为 111.00 元",
+      "passed": true
+    },
+    {
+      "name": "长订单号及前导零保留",
+      "passed": true
+    },
+    {
+      "name": "一分钱金额差异被阻断",
+      "passed": true
+    },
+    {
+      "name": "人民币金额三位小数被阻断",
+      "passed": true
+    },
+    {
+      "name": "0 数量被阻断",
+      "passed": true
+    },
+    {
+      "name": "负数数量被阻断",
+      "passed": true
+    },
+    {
+      "name": "重复订单行被阻断",
+      "passed": true
+    },
+    {
+      "name": "跨店铺映射不可复用",
+      "passed": true
+    },
+    {
+      "name": "跨租户映射不可复用",
+      "passed": true
+    },
+    {
+      "name": "SKU 映射包含平台商品 ID",
+      "passed": true
+    },
+    {
+      "name": "组合商品展开且不作为实物 SKU 扣减",
+      "passed": true
+    },
+    {
+      "name": "SKU 倍率进入库存需求",
+      "passed": true
+    },
+    {
+      "name": "换算导致四位小数时不静默舍入",
+      "passed": true
+    },
+    {
+      "name": "停用 SKU 不允许通过",
+      "passed": true
+    },
+    {
+      "name": "重复有效映射被阻断",
+      "passed": true
+    },
+    {
+      "name": "未付款模型可验证但附履约警告",
+      "passed": true
+    },
+    {
+      "name": "超额行优惠被阻断",
+      "passed": true
+    },
+    {
+      "name": "仅接受模拟数据",
+      "passed": true
+    },
+    {
+      "name": "非 CNY 明确阻断",
+      "passed": true
+    },
+    {
+      "name": "null 行列表不导致崩溃",
+      "passed": true
+    },
+    {
+      "name": "null 明细被阻断",
+      "passed": true
+    },
+    {
+      "name": "极大非法金额不溢出",
+      "passed": true
+    },
+    {
+      "name": "必填金额缺失不能默认为零",
+      "passed": true
+    },
+    {
+      "name": "未知字段（含原始个人信息字段）被拒绝",
+      "passed": true
+    },
+    {
+      "name": "时间缺少时区时拒绝",
+      "passed": true
+    },
+    {
+      "name": "数字订单号不隐式转换",
+      "passed": true
+    },
+    {
+      "name": "非法枚举不隐式转换",
+      "passed": true
+    },
+    {
+      "name": "相同输入产生稳定哈希及业务键",
+      "passed": true
+    },
+    {
+      "name": "已核实状态必须有依据",
+      "passed": true
+    },
+    {
+      "name": "核实记录持久化并拒绝旧版本覆盖",
+      "passed": true
+    },
+    {
+      "name": "两条并发新增同键映射仅一条成功",
+      "passed": true
+    },
+    {
+      "name": "映射编辑不改变历史报告快照",
+      "passed": true
+    },
+    {
+      "name": "两个服务实例共享数据库并由版本控制防止覆盖",
+      "passed": true
+    },
+    {
+      "name": "损坏工作区不静默重置",
+      "passed": true
+    },
+    {
+      "name": "所有平台默认待核实且真实连接关闭",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CommerceErp.DatabaseTool/CommerceErp.DatabaseTool.csproj" />
+    <Project Path="src/CommerceErp.Core/CommerceErp.Core.csproj" />
+    <Project Path="src/CommerceErp.Infrastructure/CommerceErp.Infrastructure.csproj" />
+    <Project Path="src/CommerceErp.Api/CommerceErp.Api.csproj" />
+    <Project Path="src/CommerceErp.Desktop/CommerceErp.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/tests/"><Project Path="tests/CommerceErp.TaskTests/CommerceErp.TaskTests.csproj" /><Project Path="tests/CommerceErp.CapacityTests/CommerceErp.CapacityTests.csproj" /><Project Path="tests/CommerceErp.ScopeTests/CommerceErp.ScopeTests.csproj" /><Project Path="tests/CommerceErp.AccountTests/CommerceErp.AccountTests.csproj" /><Project Path="tests/CommerceErp.SqlServerTests/CommerceErp.SqlServerTests.csproj" /><Project Path="tests/CommerceErp.ServiceTests/CommerceErp.ServiceTests.csproj" /><Project Path="tests/CommerceErp.Tests/CommerceErp.Tests.csproj" /><Project Path="tests/CommerceErp.BusinessTests/CommerceErp.BusinessTests.csproj" /><Project Path="tests/CommerceErp.WarehouseTests/CommerceErp.WarehouseTests.csproj" /><Project Path="tests/CommerceErp.AfterSaleTests/CommerceErp.AfterSaleTests.csproj" /><Project Path="tests/CommerceErp.FinanceTests/CommerceErp.FinanceTests.csproj" /></Folder>
+  <Project Path="tests/CommerceErp.MasterTests/CommerceErp.MasterTests.csproj" />
+  <Project Path="tests/CommerceErp.InventoryDocumentTests/CommerceErp.InventoryDocumentTests.csproj" />
+</Solution>

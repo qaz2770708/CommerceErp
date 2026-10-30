@@ -1,0 +1,243 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "name": "Requests without session token return 401",
+      "passed": true
+    },
+    {
+      "name": "Bootstrap explicitly disables live connections",
+      "passed": true
+    },
+    {
+      "name": "Unknown fixture returns 404",
+      "passed": true
+    },
+    {
+      "name": "Malformed JSON returns 400",
+      "passed": true
+    },
+    {
+      "name": "Oversized input returns 413",
+      "passed": true
+    },
+    {
+      "name": "Six fixtures produce expected pass/block decisions",
+      "passed": true
+    },
+    {
+      "name": "Unknown fields are rejected at HTTP boundary",
+      "passed": true
+    },
+    {
+      "name": "Missing mapping can be repaired through API",
+      "passed": true
+    },
+    {
+      "name": "Duplicate mapping insert returns 409",
+      "passed": true
+    },
+    {
+      "name": "Verified readiness requires evidence",
+      "passed": true
+    },
+    {
+      "name": "Reports and mappings survive service restart",
+      "passed": true
+    },
+    {
+      "name": "Import and automatic review reserve local stock",
+      "passed": true
+    },
+    {
+      "name": "Replayed operation returns original result without another reservation",
+      "passed": true
+    },
+    {
+      "name": "Business duplicate with a new operation ID is deduplicated",
+      "passed": true
+    },
+    {
+      "name": "Changed body under same operation ID returns 409",
+      "passed": true
+    },
+    {
+      "name": "Order detail includes immutable mapping snapshot and reservations",
+      "passed": true
+    },
+    {
+      "name": "Invalid versions and invalid command bodies do not mutate orders",
+      "passed": true
+    },
+    {
+      "name": "Cancellation releases once even after service restart",
+      "passed": true
+    },
+    {
+      "name": "Receive is exact and retry across restart does not duplicate stock",
+      "passed": true
+    },
+    {
+      "name": "Stock policy changes ATP and stale policy returns 409",
+      "passed": true
+    },
+    {
+      "name": "Rejected order can be corrected then explicitly re-reviewed",
+      "passed": true
+    },
+    {
+      "name": "Pagination filtering and invalid query validation work over HTTP",
+      "passed": true
+    },
+    {
+      "name": "Inventory ledger and reservation consistency pass after all mutations",
+      "passed": true
+    },
+    {
+      "name": "Warehouse routes require session and reject invalid query values",
+      "passed": true
+    },
+    {
+      "name": "Save shipping address and allocate all order lines over HTTP",
+      "passed": true
+    },
+    {
+      "name": "Stale warehouse writes and address changes on allocated orders are blocked",
+      "passed": true
+    },
+    {
+      "name": "Split and merge preserve original lines and replacement history over HTTP",
+      "passed": true
+    },
+    {
+      "name": "Barcode registration and wrong scans enforce physical SKU identity",
+      "passed": true
+    },
+    {
+      "name": "Missing scans block packing and replayed scans do not count twice",
+      "passed": true
+    },
+    {
+      "name": "Dispatch requires a recorded waybill",
+      "passed": true
+    },
+    {
+      "name": "Dispatch consumes stock once and its response survives API restart",
+      "passed": true
+    },
+    {
+      "name": "Order fulfillment and consumed reservations are visible after dispatch",
+      "passed": true
+    },
+    {
+      "name": "Shipped packages cannot be voided or directly cancelled",
+      "passed": true
+    },
+    {
+      "name": "Background retry reports unavailable connector instead of false platform success",
+      "passed": true
+    },
+    {
+      "name": "Warehouse and stock audits agree after HTTP fulfillment",
+      "passed": true
+    },
+    {
+      "name": "After-sales routes require session and validate input at HTTP boundary",
+      "passed": true
+    },
+    {
+      "name": "Create return claim from shipped lines and expose active hold on order",
+      "passed": true
+    },
+    {
+      "name": "Source case identity deduplicates across operation keys and rejects changed claims",
+      "passed": true
+    },
+    {
+      "name": "Approval and inspection enforce case state and original component quantities",
+      "passed": true
+    },
+    {
+      "name": "Good returns increase main stock and damaged returns remain isolated",
+      "passed": true
+    },
+    {
+      "name": "Return receipt business key survives restart and rejects excess return",
+      "passed": true
+    },
+    {
+      "name": "Unknown refund status retains claim and blocks withdrawal or closure",
+      "passed": true
+    },
+    {
+      "name": "Refund evidence requires explicit local source acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Refund event identity prevents duplicates and overwrites",
+      "passed": true
+    },
+    {
+      "name": "Local closure preserves received goods and blocks new receipt batches",
+      "passed": true
+    },
+    {
+      "name": "Unshipped claim blocks picking and direct order cancellation",
+      "passed": true
+    },
+    {
+      "name": "Reject releases hold and a new picking cancellation needs goods-return acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "After-sales audits pagination and persistence agree after complete HTTP workflow",
+      "passed": true
+    },
+    {
+      "name": "Finance routes authenticate and reject malformed commands and pages",
+      "passed": true
+    },
+    {
+      "name": "Finance preview has no writes and preserves explicit column mappings",
+      "passed": true
+    },
+    {
+      "name": "Bill import is persisted and batch identity deduplicates after restart",
+      "passed": true
+    },
+    {
+      "name": "Invalid mapped types and cross-file changed transactions reject entire batch",
+      "passed": true
+    },
+    {
+      "name": "Missing historical costs and fee assumptions suppress numerical profit",
+      "passed": true
+    },
+    {
+      "name": "Historical snapshot fills once and later catalog cost changes do not revalue it",
+      "passed": true
+    },
+    {
+      "name": "Explicit zero fee assumptions reconcile while quarantine cost remains",
+      "passed": true
+    },
+    {
+      "name": "Immutable finance export contains traceable rows and a verifiable JSON digest",
+      "passed": true
+    },
+    {
+      "name": "Export is only locally saved and prevents destructive bill voiding",
+      "passed": true
+    },
+    {
+      "name": "Changed fee evidence marks prior export stale without rewriting history",
+      "passed": true
+    },
+    {
+      "name": "Finance queries, structure audit and restart retain all boundaries",
+      "passed": true
+    }
+  ],
+  "failed": 0,
+  "total": 59
+}

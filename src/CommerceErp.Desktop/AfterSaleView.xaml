@@ -1,0 +1,106 @@
+<UserControl x:Class="CommerceErp.Desktop.AfterSaleView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CommerceErp.Desktop">
+  <UserControl.Resources><local:AfterSaleLabelConverter x:Key="AfterLabel"/></UserControl.Resources>
+  <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <WrapPanel Margin="0,0,0,8" IsEnabled="{Binding IsReady}">
+      <TextBlock Text="操作人" VerticalAlignment="Center" Margin="0,0,7,7"/><TextBox IsReadOnly="True" Text="{Binding Actor, UpdateSourceTrigger=PropertyChanged}" Width="110" MaxLength="80" Margin="0,0,12,7"/>
+      <TextBlock Text="操作原因" VerticalAlignment="Center" Margin="0,0,7,7"/><TextBox Text="{Binding Reason, UpdateSourceTrigger=PropertyChanged}" Width="220" MaxLength="500" Margin="0,0,12,7"/>
+      <Button Content="刷新" Command="{Binding RefreshCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,8,7"/><Button Content="账实检查" Command="{Binding AuditCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,8,7"/>
+      <Button Content="{Binding PendingText}" Command="{Binding RecoverCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,0,7"/>
+    </WrapPanel>
+    <TabControl Grid.Row="1" SelectedIndex="{Binding Tab}" Background="Transparent" BorderThickness="0">
+      <TabItem Header="1 · 售后申请" Padding="16,9"><Grid Margin="0,12,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="1.15*"/></Grid.ColumnDefinitions>
+        <Border Style="{StaticResource Card}" Padding="16"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel IsEnabled="{Binding IsReady}">
+          <TextBlock Text="从原订单发起" FontSize="17" FontWeight="SemiBold"/><TextBlock Text="最近 200 张已审核订单；可按原订单号查找。" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,6,0,10"/>
+          <DockPanel><Button DockPanel.Dock="Right" Content="查询" Command="{Binding RefreshCommand}" Margin="8,0,0,0"/><TextBox Text="{Binding OrderSearch, UpdateSourceTrigger=PropertyChanged}"/></DockPanel>
+          <ComboBox ItemsSource="{Binding Candidates}" SelectedItem="{Binding SelectedCandidate}" DisplayMemberPath="ExternalOrderId" Margin="0,10,0,8"/>
+          <Button Content="打开订单 / 重新载入" Command="{Binding OpenOrderCommand}" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left"/>
+          <TextBlock Text="当前申请的原订单" Style="{StaticResource FieldLabel}"/><TextBlock Text="{Binding Preparation.Order.ExternalOrderId}" FontWeight="SemiBold"/>
+          <WrapPanel Margin="0,6,0,0"><TextBlock Text="实付 ¥"/><TextBlock Text="{Binding Preparation.Order.PaidAmount, StringFormat={}{0:0.00}}"/><TextBlock Text="　可申请 ¥"/><TextBlock Text="{Binding Preparation.Order.RemainingRefundAmount, StringFormat={}{0:0.00}}"/></WrapPanel>
+          <TextBlock Text="售后类型" Style="{StaticResource FieldLabel}"/><ComboBox ItemsSource="{Binding Kinds}" SelectedItem="{Binding Kind}" DisplayMemberPath="Name"/>
+          <TextBlock Text="来源售后编号（本地申请自动生成，可填写平台单号）" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding SourceNumber, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
+          <TextBlock Text="本次申请退款金额（元）" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding RefundAmount, UpdateSourceTrigger=PropertyChanged}" Width="150" HorizontalAlignment="Left"/>
+          <TextBlock Text="未出库取消按整单实付处理；已出库仅退款和退货退款须在右侧选择本次商品数量。" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,12,0,0"/>
+          <Button Content="提交申请并拦截发货" Command="{Binding CreateCommand}" HorizontalAlignment="Left" Margin="0,14,0,0"/>
+        </StackPanel></ScrollViewer></Border>
+        <Border Grid.Column="2" Style="{StaticResource Card}" Padding="16"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel>
+          <TextBlock Text="按原出库行选择数量" FontSize="17" FontWeight="SemiBold"/><TextBlock Text="本次数量默认 0；只填写实际申请售后的销售数量。未出库整单取消无需选行。" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,6,0,12"/>
+          <DataGrid ItemsSource="{Binding SourceLines}" Height="245" IsReadOnly="False" IsEnabled="{Binding IsReady}" HorizontalScrollBarVisibility="Auto"><DataGrid.Columns>
+            <DataGridTextColumn Header="出库单" Binding="{Binding Source.ShipmentNumber}" Width="155" IsReadOnly="True" ElementStyle="{StaticResource GridValue}"/>
+            <DataGridTextColumn Header="销售 SKU" Binding="{Binding Source.SkuCode}" Width="120" IsReadOnly="True"/>
+            <DataGridTextColumn Header="已出" Binding="{Binding Source.Shipped}" Width="55" IsReadOnly="True"/><DataGridTextColumn Header="可申请" Binding="{Binding Source.Remaining}" Width="65" IsReadOnly="True"/>
+            <DataGridTextColumn Header="本次数量" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="90"/>
+          </DataGrid.Columns></DataGrid>
+          <TextBlock Text="处理规则" FontSize="15" FontWeight="SemiBold" Margin="0,20,0,10"/>
+          <TextBlock Text="申请提交即拦截相关订单的配单、拣货、封箱和出库。处理中申请占用可退数量及退款额度；驳回或符合条件的撤回会释放额度。" Foreground="#37628D"/>
+          <TextBlock Text="已发货仅退款不会增加库存。退货退款按实物组件质检：良品入主库存，残次品入隔离库存。平台退款与仓内收货分别跟踪。" Foreground="#37628D" Margin="0,12,0,0"/>
+        </StackPanel></ScrollViewer></Border>
+      </Grid></TabItem>
+      <TabItem Header="2 · 处理与质检" Padding="16,9"><Grid Margin="0,12,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="0.85*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="1.35*"/></Grid.ColumnDefinitions>
+        <Border Style="{StaticResource Card}" Padding="14"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+          <TextBlock Text="售后单列表" FontSize="16" FontWeight="SemiBold"/>
+          <DockPanel Grid.Row="1" Margin="0,10,0,8"><Button DockPanel.Dock="Right" Content="查询" Command="{Binding RefreshCommand}" Margin="7,0,0,0"/><TextBox Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" ToolTip="售后单号、来源编号或原订单号"/></DockPanel>
+          <WrapPanel Grid.Row="2" Margin="0,0,0,10"><ComboBox ItemsSource="{Binding Filters}" SelectedItem="{Binding Filter}" DisplayMemberPath="Name" Width="130" Margin="0,0,8,6"/><Button Content="打开处理单 →" Command="{Binding OpenCaseCommand}" Margin="0,0,0,6"/></WrapPanel>
+          <DataGrid Grid.Row="3" ItemsSource="{Binding Cases}" SelectedItem="{Binding SelectedCase}" HorizontalScrollBarVisibility="Auto"><DataGrid.Columns>
+            <DataGridTextColumn Header="售后单号" Binding="{Binding Source.Number}" Width="175" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="状态" Binding="{Binding State}" Width="90"/>
+            <DataGridTextColumn Header="类型" Binding="{Binding Kind}" Width="130"/><DataGridTextColumn Header="金额" Binding="{Binding Source.RefundAmount, StringFormat={}{0:0.00}}" Width="75"/>
+            <DataGridTextColumn Header="原订单号" Binding="{Binding Source.ExternalOrderId}" Width="190" ElementStyle="{StaticResource GridValue}"/>
+          </DataGrid.Columns></DataGrid>
+          <WrapPanel Grid.Row="4" Margin="0,10,0,0"><TextBlock Text="{Binding PageText}" VerticalAlignment="Center" FontSize="11" Margin="0,0,8,6"/><Button Content="上一页" Command="{Binding PreviousCommand}" Style="{StaticResource SecondaryButton}" Padding="8,5" Margin="0,0,6,6"/><Button Content="下一页" Command="{Binding NextCommand}" Style="{StaticResource SecondaryButton}" Padding="8,5" Margin="0,0,0,6"/></WrapPanel>
+        </Grid></Border>
+        <Border Grid.Column="2" Style="{StaticResource Card}" Padding="16"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel IsEnabled="{Binding IsReady}">
+          <TextBlock Text="{Binding DetailTitle}" FontSize="16" FontWeight="SemiBold"/><TextBlock Text="{Binding DetailStatus}" Foreground="#37628D" Margin="0,6,0,4"/>
+          <TextBlock Text="{Binding Details.Summary.ExternalOrderId, StringFormat=原订单：{0}}" Foreground="{StaticResource Muted}" FontSize="11"/>
+          <CheckBox IsChecked="{Binding ConfirmReturned}" Visibility="{Binding IsCancellation, Converter={StaticResource BoolVisibility}}" Margin="0,12,0,10"><TextBlock Text="确认相关已拣 / 已封箱包裹全部实物已归还（含合包其他订单）" TextWrapping="Wrap"/></CheckBox>
+          <WrapPanel><Button Content="批准售后" Command="{Binding ApproveCommand}" Margin="0,0,8,8"/><Button Content="驳回申请" Command="{Binding RejectCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,8,8"/><Button Content="撤回申请" Command="{Binding WithdrawCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,0,8"/></WrapPanel>
+          <StackPanel Visibility="{Binding IsReturn, Converter={StaticResource BoolVisibility}}">
+          <TextBlock Text="退货实物质检" FontSize="15" FontWeight="SemiBold" Margin="0,12,0,5"/><TextBlock Text="按实际收到的组件填本批良品 / 残次品数量；未收到的部分保持 0。" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,0,0,10"/>
+          <DataGrid ItemsSource="{Binding Inspection}" Height="175" IsReadOnly="False" IsEnabled="{Binding CanInspect}" HorizontalScrollBarVisibility="Auto"><DataGrid.Columns>
+            <DataGridTextColumn Header="实物 SKU" Binding="{Binding Source.SkuCode}" Width="120" IsReadOnly="True"/><DataGridTextColumn Header="待收" Binding="{Binding Source.Remaining}" Width="55" IsReadOnly="True"/>
+            <DataGridTextColumn Header="本批良品" Binding="{Binding Good, UpdateSourceTrigger=PropertyChanged}" Width="82"/><DataGridTextColumn Header="本批残次" Binding="{Binding Damaged, UpdateSourceTrigger=PropertyChanged}" Width="82"/>
+            <DataGridTextColumn Header="累计良品" Binding="{Binding Source.GoodReceived}" Width="95" IsReadOnly="True"/><DataGridTextColumn Header="累计残次" Binding="{Binding Source.DamagedReceived}" Width="95" IsReadOnly="True"/>
+            <DataGridTextColumn Header="原出库单" Binding="{Binding Source.ShipmentNumber}" Width="170" IsReadOnly="True" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="原行号" Binding="{Binding Source.ExternalLineId}" Width="100" IsReadOnly="True"/>
+          </DataGrid.Columns></DataGrid>
+          <TextBlock Text="本次收货批次号（每批唯一；重试须保留原号）" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding ReceiptNumber, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
+          <TextBlock Text="退回运单号（选填）" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding ReturnTracking, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
+          <Button Content="确认质检并入账" Command="{Binding InspectCommand}" HorizontalAlignment="Left" Margin="0,12,0,12"/>
+          </StackPanel>
+          <Separator/><TextBlock Text="本地结案" FontSize="15" FontWeight="SemiBold" Margin="0,12,0,6"/>
+          <TextBlock Text="先在“退款跟踪”登记凭证，再结案。少退须填写原因并明确确认；缺少的商品不会补入库存。" FontSize="11" Foreground="{StaticResource Muted}"/>
+          <CheckBox IsChecked="{Binding AcceptShort}" Visibility="{Binding IsReturn, Converter={StaticResource BoolVisibility}}" Margin="0,12,0,10"><TextBlock Text="接受本单少退差异并结案，原因已填写" TextWrapping="Wrap"/></CheckBox>
+          <Button Content="按人工凭证本地结案" Command="{Binding CloseCommand}" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left"/>
+          <TextBlock Text="已登记收货批次" FontSize="14" FontWeight="SemiBold" Margin="0,20,0,8"/>
+          <DataGrid ItemsSource="{Binding Details.Receipts}" Height="125" HorizontalScrollBarVisibility="Auto"><DataGrid.Columns><DataGridTextColumn Header="批次号" Binding="{Binding Number}" Width="210" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="良品" Binding="{Binding GoodQuantity}" Width="60"/><DataGridTextColumn Header="残次" Binding="{Binding DamagedQuantity}" Width="60"/><DataGridTextColumn Header="操作人" Binding="{Binding Actor}" Width="100"/></DataGrid.Columns></DataGrid>
+          <TextBlock Text="原订单行" FontSize="14" FontWeight="SemiBold" Margin="0,20,0,8"/>
+          <DataGrid ItemsSource="{Binding Details.Lines}" Height="120" HorizontalScrollBarVisibility="Auto"><DataGrid.Columns><DataGridTextColumn Header="原出库单" Binding="{Binding ShipmentNumber}" Width="170"/><DataGridTextColumn Header="原行号" Binding="{Binding ExternalLineId}" Width="100"/><DataGridTextColumn Header="销售 SKU" Binding="{Binding SkuCode}" Width="120"/><DataGridTextColumn Header="申请量" Binding="{Binding Quantity}" Width="65"/></DataGrid.Columns></DataGrid>
+          <TextBlock Text="操作轨迹" FontSize="14" FontWeight="SemiBold" Margin="0,20,0,8"/>
+          <DataGrid ItemsSource="{Binding Details.History}" Height="160" HorizontalScrollBarVisibility="Auto"><DataGrid.Columns><DataGridTextColumn Header="动作" Binding="{Binding Action, Converter={StaticResource AfterLabel}}" Width="110"/><DataGridTextColumn Header="操作人" Binding="{Binding Actor}" Width="100"/><DataGridTextColumn Header="原因" Binding="{Binding Reason}" Width="220" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="时间 (UTC)" Binding="{Binding CreatedAt, StringFormat={}{0:MM-dd HH:mm:ss}}" Width="135"/></DataGrid.Columns></DataGrid>
+        </StackPanel></ScrollViewer></Border>
+      </Grid></TabItem>
+      <TabItem Header="3 · 退款跟踪" Padding="16,9"><Grid Margin="0,12,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="0.95*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="1.2*"/></Grid.ColumnDefinitions>
+        <Border Style="{StaticResource Card}" Padding="16"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel IsEnabled="{Binding IsReady}">
+          <TextBlock Text="{Binding DetailTitle}" FontSize="16" FontWeight="SemiBold"/><TextBlock Text="{Binding DetailStatus}" Foreground="#37628D" Margin="0,6,0,12"/>
+          <TextBlock Text="人工登记退款观察结果" FontSize="15" FontWeight="SemiBold"/><TextBlock Text="当前未接通真实退款接口。本表不会发起退款，也不会标记平台已确认。" Foreground="#A85B14" Margin="0,8,0,0"/>
+          <TextBlock Text="本单申请金额（元）" Style="{StaticResource FieldLabel}"/><TextBlock Text="{Binding Details.Summary.RefundAmount, StringFormat={}{0:0.00}}" FontSize="23" FontWeight="SemiBold"/>
+          <TextBlock Text="观察结果" Style="{StaticResource FieldLabel}"/><ComboBox ItemsSource="{Binding RefundStates}" SelectedItem="{Binding RefundState}" DisplayMemberPath="Name"/>
+          <TextBlock Text="记录事件号（重试同一记录时保留）" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding EventKey, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
+          <TextBlock Text="退款凭证号（登记凭证时必填）" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding RefundReference, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"/>
+          <TextBlock Text="观察时间（含时区）" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding ObservedAt, UpdateSourceTrigger=PropertyChanged}"/>
+          <TextBlock Text="凭证或回查说明" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding Evidence, UpdateSourceTrigger=PropertyChanged}" Height="85" MaxLength="1000" TextWrapping="Wrap"/>
+          <CheckBox IsChecked="{Binding ConfirmEvidence}" Margin="0,14,0,12"><TextBlock Text="我确认这是人工凭证登记，未经系统平台核验" TextWrapping="Wrap"/></CheckBox>
+          <Button Content="保存退款跟踪记录" Command="{Binding RefundCommand}" HorizontalAlignment="Left"/>
+        </StackPanel></ScrollViewer></Border>
+        <Border Grid.Column="2" Style="{StaticResource Card}" Padding="16"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+          <TextBlock Text="退款观察历史" FontSize="17" FontWeight="SemiBold"/><TextBlock Grid.Row="1" Text="结果不明时保留退款额度。已登记凭证不能被旧通知覆盖；历史不会被删除。" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,8,0,12"/>
+          <DataGrid Grid.Row="2" ItemsSource="{Binding Refunds}" RowHeight="42" HorizontalScrollBarVisibility="Auto"><DataGrid.Columns><DataGridTextColumn Header="状态" Binding="{Binding State}" Width="205"/><DataGridTextColumn Header="金额" Binding="{Binding Source.Amount, StringFormat={}{0:0.00}}" Width="75"/><DataGridTextColumn Header="凭证号" Binding="{Binding Source.RefundReference}" Width="180" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="说明" Binding="{Binding Source.Evidence}" Width="240" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="观察时间" Binding="{Binding Source.ObservedAt, StringFormat={}{0:yyyy-MM-dd HH:mm:ss zzz}}" Width="200"/></DataGrid.Columns></DataGrid>
+        </Grid></Border>
+      </Grid></TabItem>
+      <TabItem Header="4 · 隔离库存" Padding="16,9"><Border Style="{StaticResource Card}" Padding="16" Margin="0,12,0,0"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="150"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+        <TextBlock Text="残次品独立存放，不计入可承诺量" FontSize="17" FontWeight="SemiBold"/><TextBlock Grid.Row="1" Text="这里的数量与主库在库量分开；调整冻结或安全库存不会把隔离品变为可售品。处置和返修流程后续扩展。" Foreground="{StaticResource Muted}" Margin="0,8,0,12"/>
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Quarantine}"><DataGrid.Columns><DataGridTextColumn Header="实物 SKU" Binding="{Binding SkuCode}" Width="180"/><DataGridTextColumn Header="隔离数量" Binding="{Binding Quantity}" Width="110"/><DataGridTextColumn Header="版本" Binding="{Binding Version}" Width="85"/></DataGrid.Columns></DataGrid>
+        <TextBlock Grid.Row="3" Text="隔离入库流水 · 最近 200 条" FontSize="14" FontWeight="SemiBold" Margin="0,18,0,10"/>
+        <DataGrid Grid.Row="4" ItemsSource="{Binding QuarantineLedger}" HorizontalScrollBarVisibility="Auto"><DataGrid.Columns><DataGridTextColumn Header="实物 SKU" Binding="{Binding SkuCode}" Width="140"/><DataGridTextColumn Header="本次增加" Binding="{Binding Quantity}" Width="85"/><DataGridTextColumn Header="结存" Binding="{Binding BalanceAfter}" Width="70"/><DataGridTextColumn Header="售后单号" Binding="{Binding CaseNumber}" Width="190"/><DataGridTextColumn Header="收货批次" Binding="{Binding ReceiptNumber}" Width="200" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="操作人" Binding="{Binding Actor}" Width="110"/><DataGridTextColumn Header="原因" Binding="{Binding Reason}" Width="220" ElementStyle="{StaticResource GridValue}"/></DataGrid.Columns></DataGrid>
+      </Grid></Border></TabItem>
+    </TabControl>
+    <TextBlock Grid.Row="2" Text="{Binding Message}" Foreground="#37628D" FontSize="12" Margin="0,12,0,0" MaxHeight="52" ToolTip="{Binding Message}"/>
+  </Grid>
+</UserControl>

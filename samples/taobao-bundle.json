@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "dataKind": "synthetic",
+  "tenantId": "demo-enterprise",
+  "platform": "Taobao",
+  "shopId": "demo-tmall-01",
+  "externalOrderId": "000900719925474099312345678901",
+  "sourceUpdatedAt": "2026-10-28T10:00:00+08:00",
+  "paymentState": "Paid",
+  "fulfillmentState": "Unfulfilled",
+  "currency": "CNY",
+  "shippingFee": 0,
+  "orderDiscount": 0,
+  "paidAmount": 258,
+  "lines": [
+    {
+      "externalLineId": "kit-line",
+      "platformProductId": "product-300",
+      "platformSkuId": "variant-kit",
+      "quantity": 2,
+      "goodsAmount": 258,
+      "merchantDiscount": 0
+    }
+  ]
+}

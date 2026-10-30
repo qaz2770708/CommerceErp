@@ -1,0 +1,1 @@
+<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType></PropertyGroup><ItemGroup><ProjectReference Include="../../src/CommerceErp.Infrastructure/CommerceErp.Infrastructure.csproj"/><ProjectReference Include="../../src/CommerceErp.Api/CommerceErp.Api.csproj"/></ItemGroup></Project>

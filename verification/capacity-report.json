@@ -1,0 +1,29 @@
+{
+  "generatedAtUtc": "2026-10-30T11:25:04.8147203+00:00",
+  "provider": "Sqlite",
+  "scope": "Synthetic_Localhost_SingleApi_HotSku_CorrectnessBaseline",
+  "productionCapacityAccepted": false,
+  "sqlServerExecuted": false,
+  "logicalOrders": 200,
+  "completedOrders": 200,
+  "logicalConcurrency": 8,
+  "parallelRequestsPerOrder": 2,
+  "httpLoadAttempts": 400,
+  "retry503": 0,
+  "elapsedSeconds": 29.100367,
+  "completedLogicalOrdersPerSecond": 6.87276555653061,
+  "httpAttemptsPerSecond": 13.74553111306122,
+  "logicalPairLatencyMilliseconds": {
+    "p50": 1082.5949,
+    "p95": 2627.6999,
+    "p99": 3392.5364,
+    "max": 4789.709
+  },
+  "latencyIncludes": "Admission and both duplicate HTTP responses; excludes waiting for client concurrency slot",
+  "environment": {
+    "os": "Microsoft Windows 10.0.19045",
+    "runtime": ".NET 10.0.14",
+    "logicalProcessors": 12
+  },
+  "limitations": "Single hot SKU and synthetic orders; excludes real platform latency, long-duration soak, multi-host networking, warehouse/scanning workload and production hardware acceptance."
+}

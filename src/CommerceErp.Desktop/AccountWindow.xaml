@@ -1,0 +1,26 @@
+<Window x:Class="CommerceErp.Desktop.AccountWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="账号与访问审计" Width="1160" Height="800" MinWidth="1040" MinHeight="740" WindowStartupLocation="CenterOwner" Background="#F4F7FC" FontFamily="Microsoft YaHei UI">
+ <Grid Margin="24" Background="#F4F7FC"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+ <DockPanel Margin="0,0,0,16"><Button Content="刷新" Click="Refresh_Click" DockPanel.Dock="Right"/><TextBlock Text="账号、角色与访问审计" FontSize="25" FontWeight="SemiBold" Foreground="#153052"/></DockPanel>
+ <TabControl x:Name="AccountTabs" Grid.Row="1"><TabItem Header="账号管理"><Grid Margin="16"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="360"/></Grid.ColumnDefinitions>
+ <DataGrid x:Name="UsersGrid" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionChanged="Selected_Changed" Margin="0,0,18,0"><DataGrid.Columns><DataGridTextColumn Header="账号" Binding="{Binding Username}" Width="*"/><DataGridTextColumn Header="姓名" Binding="{Binding DisplayName}" Width="*"/><DataGridTextColumn Header="角色" Binding="{Binding Role, Converter={StaticResource BusinessLabel}}" Width="*"/><DataGridCheckBoxColumn Header="启用" Binding="{Binding Enabled}" Width="55"/></DataGrid.Columns></DataGrid>
+ <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto"><StackPanel><Button Content="新建账号" Click="New_Click" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+ <TextBlock Text="账号名"/><TextBox x:Name="UsernameBox" Margin="0,5,0,9"/><TextBlock Text="显示名称"/><TextBox x:Name="DisplayBox" Margin="0,5,0,9"/>
+ <TextBlock Text="角色"/><ComboBox x:Name="RoleBox" Margin="0,5,0,9"><ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Converter={StaticResource BusinessLabel}}"/></DataTemplate></ComboBox.ItemTemplate></ComboBox><CheckBox x:Name="EnabledBox" Content="启用账号" IsChecked="True" Margin="0,0,0,12"/>
+ <TextBlock Text="范围：当前工作区企业 / 仓库" Foreground="#63758C"/><TextBlock Text="客服、仓储、财务和观察员可按店铺授权；管理员须全选。" TextWrapping="Wrap" Foreground="#63758C" Margin="0,5,0,8"/><StackPanel x:Name="ShopsPanel"/>
+ <TextBlock Text="初始密码 / 重置的新密码（至少 12 字符）" Margin="0,12,0,5"/><PasswordBox x:Name="PasswordBox" Padding="8"/>
+ <TextBlock Text="修改原因" Margin="0,12,0,5"/><TextBox x:Name="ReasonBox" Margin="0,0,0,12"/>
+ <WrapPanel><Button x:Name="SaveButton" Content="保存账号" Click="Save_Click" Margin="0,0,8,8"/><Button x:Name="ResetButton" Content="重置密码" Click="Reset_Click" Margin="0,0,0,8"/></WrapPanel>
+ <TextBlock Text="停用、修改权限或重置密码会使该账号旧会话失效。账号不能删除；最后一个管理员受到保护。" TextWrapping="Wrap" Foreground="#63758C" LineHeight="21"/>
+ </StackPanel></ScrollViewer></Grid></TabItem>
+ <TabItem Header="访问审计"><Grid Margin="12"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+ <StackPanel><WrapPanel Margin="0,0,0,8">
+ <TextBlock Text="账号" VerticalAlignment="Center"/><TextBox x:Name="AuditActorBox" Width="110" Margin="6,0,12,0"/>
+ <TextBlock Text="动作" VerticalAlignment="Center"/><TextBox x:Name="AuditActionBox" Width="120" Margin="6,0,12,0"/>
+ <TextBlock Text="结果" VerticalAlignment="Center"/><ComboBox x:Name="AuditOutcomeBox" Width="100" SelectedIndex="0" Margin="6,0,12,0"><ComboBoxItem Content="全部"/><ComboBoxItem Content="已提交"/><ComboBoxItem Content="已拒绝"/></ComboBox>
+ <TextBlock Text="资源/操作号" VerticalAlignment="Center"/><TextBox x:Name="AuditResourceBox" Width="160" Margin="6,0,0,0"/>
+ </WrapPanel><WrapPanel Margin="0,0,0,10"><TextBlock Text="本地日期" VerticalAlignment="Center"/><DatePicker x:Name="AuditFromBox" Width="125" Margin="8,0,4,0"/><TextBlock Text="至" VerticalAlignment="Center"/><DatePicker x:Name="AuditToBox" Width="125" Margin="4,0,12,0"/>
+ <Button Content="查询 / 刷新" Click="SearchAudit_Click" Margin="0,0,12,0"/><TextBlock Text="导出原因" VerticalAlignment="Center" Margin="0,0,6,0"/><TextBox x:Name="AuditReasonBox" Width="180" ToolTip="导出原因" Margin="0,0,8,0"/><Button Content="导出筛选结果 JSON" Click="ExportAudit_Click"/>
+ </WrapPanel></StackPanel><DataGrid Grid.Row="1" x:Name="AuditGrid" Margin="12" AutoGenerateColumns="False" IsReadOnly="True"><DataGrid.Columns><DataGridTextColumn Header="时间（UTC）" Binding="{Binding CreatedAt}" Width="190"/><DataGridTextColumn Header="账号" Binding="{Binding ActorName}" Width="100"/><DataGridTextColumn Header="操作" Binding="{Binding Action}" Width="130"/><DataGridTextColumn Header="资源" Binding="{Binding Resource}" Width="*"/><DataGridTextColumn Header="原因" Binding="{Binding Reason}" Width="160"/><DataGridTextColumn Header="结果" Binding="{Binding Outcome}" Width="100"/></DataGrid.Columns></DataGrid><DockPanel Grid.Row="2" Margin="0,10,0,0"><StackPanel Orientation="Horizontal" DockPanel.Dock="Right"><Button x:Name="AuditPrevious" Content="上一页" Click="PreviousAudit_Click" Margin="0,0,8,0"/><Button x:Name="AuditNext" Content="下一页" Click="NextAudit_Click"/></StackPanel><TextBlock x:Name="AuditPageText" VerticalAlignment="Center"/></DockPanel></Grid></TabItem></TabControl>
+ <TextBlock Grid.Row="2" x:Name="StatusText" Margin="0,14,0,0" TextWrapping="Wrap" Foreground="#37628D" Text="账号管理与业务访问均由服务端校验。"/>
+ </Grid>
+</Window>

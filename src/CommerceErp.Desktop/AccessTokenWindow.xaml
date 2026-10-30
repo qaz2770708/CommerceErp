@@ -1,0 +1,3 @@
+<Window x:Class="CommerceErp.Desktop.AccessTokenWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="连接 ERP 服务" Width="520" Height="280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#F4F7FC">
+ <StackPanel Margin="28" Background="#F4F7FC"><TextBlock Text="输入本次访问令牌" FontSize="23" FontWeight="SemiBold"/><TextBlock x:Name="AddressText" Margin="0,12,0,12" TextTrimming="CharacterEllipsis" Foreground="#63758C"/><PasswordBox x:Name="TokenBox" Padding="9"/><TextBlock Text="本次令牌仅保留在内存中。" Foreground="#63758C" Margin="0,8,0,12"/><Button Content="连接" IsDefault="True" HorizontalAlignment="Right" Click="Connect_Click"/></StackPanel>
+</Window>

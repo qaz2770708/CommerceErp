@@ -1,0 +1,28 @@
+Offline dependencies included without modification for Windows x64 / .NET 10.
+
+Microsoft.Data.Sqlite.dll
+  Package: Microsoft.Data.Sqlite.Core 10.0.0, lib/net8.0
+  Copyright (c) .NET Foundation and Contributors; Microsoft Corporation.
+  License: MIT (see MIT-Microsoft.Data.Sqlite.txt)
+  Source: https://github.com/dotnet/efcore/tree/v10.0.0
+  License source: https://github.com/dotnet/efcore/blob/v10.0.0/LICENSE.txt
+
+SQLitePCLRaw.core.dll
+  Package: SQLitePCLRaw.core 2.1.11, lib/netstandard2.0
+SQLitePCLRaw.provider.e_sqlite3.dll
+  Package: SQLitePCLRaw.provider.e_sqlite3 2.1.11, lib/net6.0
+e_sqlite3.dll
+  Package: SQLitePCLRaw.lib.e_sqlite3 2.1.11, runtimes/win-x64/native
+  Copyright 2014-2024 SourceGear, LLC
+  Package license: Apache-2.0 (see APACHE-2.0.txt)
+  Source: https://github.com/ericsink/SQLitePCL.raw/tree/v2.1.11
+  License source: https://github.com/ericsink/SQLitePCL.raw/blob/v2.1.11/LICENSE.TXT
+
+SQLite engine code is dedicated to the public domain by its authors.
+  https://www.sqlite.org/copyright.html
+
+The assemblies were copied from this machine's existing NuGet cache, not
+downloaded at build time. The app targets the .NET 10 shared framework,
+which supplies System.Memory. This offline reference set is not a general
+NuGet package replacement for older target frameworks or other platforms.
+SHA256SUMS.txt records the exact assembly bytes delivered.

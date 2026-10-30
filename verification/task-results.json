@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "total": 20,
+  "failed": 0,
+  "results": [
+    {
+      "name": "schema6升级保留账号订单事件与库身份，重复打开不重置",
+      "passed": true
+    },
+    {
+      "name": "业务提交与事件同事务，回滚不留下待处理任务",
+      "passed": true
+    },
+    {
+      "name": "无连接器明确阻断且不改变库存",
+      "passed": true
+    },
+    {
+      "name": "同一业务对象前序未确认时后续事件不越过",
+      "passed": true
+    },
+    {
+      "name": "多个消费者并发领取同一任务只产生一次有效处理",
+      "passed": true
+    },
+    {
+      "name": "查询确认已处理时不再次发送",
+      "passed": true
+    },
+    {
+      "name": "重复处理器配置阻断，不选择任意处理器",
+      "passed": true
+    },
+    {
+      "name": "缺少回执不能标记确认成功",
+      "passed": true
+    },
+    {
+      "name": "异常消息不向任务详情暴露平台凭证或原始载荷",
+      "passed": true
+    },
+    {
+      "name": "暂时失败按退避计划重试并在五次后停止",
+      "passed": true
+    },
+    {
+      "name": "结果不明达到上限仍保留未知状态",
+      "passed": true
+    },
+    {
+      "name": "人工重试保留任务ID与总次数，同操作号不重复留痕",
+      "passed": true
+    },
+    {
+      "name": "旧版本重试与空原因被拒绝",
+      "passed": true
+    },
+    {
+      "name": "已确认或已排队的任务不能用新操作号重复排队",
+      "passed": true
+    },
+    {
+      "name": "领取后进程退出，重开数据库在租约到期后接续",
+      "passed": true
+    },
+    {
+      "name": "外部已受理但本地回执前退出，恢复先回查而不重复发送",
+      "passed": true
+    },
+    {
+      "name": "旧消费者晚到的结果不能覆盖新租约已确认结果",
+      "passed": true
+    },
+    {
+      "name": "处理回执事务中断后回滚，恢复仍先回查",
+      "passed": true
+    },
+    {
+      "name": "处理历史只显示最近一百条并保持可读时间顺序",
+      "passed": true
+    },
+    {
+      "name": "任务分页与输入校验",
+      "passed": true
+    }
+  ]
+}

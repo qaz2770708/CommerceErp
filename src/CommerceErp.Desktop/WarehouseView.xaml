@@ -1,0 +1,94 @@
+<UserControl x:Class="CommerceErp.Desktop.WarehouseView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+    <WrapPanel Margin="0,0,0,8" IsEnabled="{Binding IsReady}">
+      <TextBlock Text="操作人" VerticalAlignment="Center" Margin="0,0,7,7"/><TextBox IsReadOnly="True" Text="{Binding Actor, UpdateSourceTrigger=PropertyChanged}" Width="110" MaxLength="80" Margin="0,0,12,7"/>
+      <TextBlock Text="操作原因" VerticalAlignment="Center" Margin="0,0,7,7"/><TextBox Text="{Binding Reason, UpdateSourceTrigger=PropertyChanged}" Width="220" MaxLength="500" ToolTip="保存地址、配单、拆合单、作废、运单和出库均须填写" Margin="0,0,12,7"/>
+      <Button Content="刷新" Command="{Binding RefreshCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,8,7"/>
+      <Button Content="账实检查" Command="{Binding AuditCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,8,7"/>
+      <Button Content="{Binding PendingText}" Command="{Binding RecoverCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,0,7"/>
+    </WrapPanel>
+    <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0" SelectedIndex="{Binding Tab}">
+      <TabItem Header="1 · 收货资料与配单" Padding="16,9"><Grid Margin="0,12,0,0">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="1.15*"/></Grid.ColumnDefinitions>
+        <Border Style="{StaticResource Card}" Padding="16"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel IsEnabled="{Binding IsReady}">
+          <TextBlock Text="从已审核订单开始" FontSize="17" FontWeight="SemiBold"/><TextBlock Text="可输入原订单号筛选最近 200 张已审核订单。" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,6,0,10"/>
+          <DockPanel><Button Content="查询" Command="{Binding RefreshCommand}" DockPanel.Dock="Right" Margin="8,0,0,0" Padding="12,8"/><TextBox Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" ToolTip="原订单号、出库单号或运单号；配单列表按原订单号筛选"/></DockPanel>
+          <ComboBox ItemsSource="{Binding Candidates}" SelectedItem="{Binding SelectedCandidate}" DisplayMemberPath="ExternalOrderId" Margin="0,10,0,8"/>
+          <Button Content="打开订单 / 重新载入" Command="{Binding OpenSourceCommand}" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left"/>
+          <TextBlock Text="正在编辑的原订单" Style="{StaticResource FieldLabel}"/><TextBlock Text="{Binding Preparation.Order.ExternalOrderId}" FontWeight="SemiBold"/><TextBlock Text="{Binding Preparation.Order.ShippingState, Converter={StaticResource BusinessLabel}}" Foreground="#37628D" Margin="0,4,0,0"/>
+          <UniformGrid Columns="2"><StackPanel Margin="0,0,8,0"><TextBlock Text="收件人" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding Recipient, UpdateSourceTrigger=PropertyChanged}" MaxLength="80"/></StackPanel><StackPanel><TextBlock Text="联系电话" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" MaxLength="40"/></StackPanel></UniformGrid>
+          <UniformGrid Columns="3"><StackPanel Margin="0,0,8,0"><TextBlock Text="省" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding Province, UpdateSourceTrigger=PropertyChanged}" MaxLength="80"/></StackPanel><StackPanel Margin="0,0,8,0"><TextBlock Text="市" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding City, UpdateSourceTrigger=PropertyChanged}" MaxLength="80"/></StackPanel><StackPanel><TextBlock Text="区 / 县" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding District, UpdateSourceTrigger=PropertyChanged}" MaxLength="80"/></StackPanel></UniformGrid>
+          <TextBlock Text="详细地址" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding Street, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Height="60" MaxLength="300"/>
+          <TextBlock Text="邮编（选填）" Style="{StaticResource FieldLabel}"/><TextBox Text="{Binding PostalCode, UpdateSourceTrigger=PropertyChanged}" Width="130" HorizontalAlignment="Left" MaxLength="20"/>
+          <CheckBox Content="允许与同店铺、相同收货资料的订单合包" IsChecked="{Binding AllowMerge}" Margin="0,16,0,12"/>
+          <Button Content="保存收货资料" Command="{Binding SaveAddressCommand}" HorizontalAlignment="Left"/>
+          <TextBlock Text="有有效出库单后不能改地址。已有出库记录的订单需通过后续售后流程处理。" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,10,0,0"/>
+        </StackPanel></ScrollViewer></Border>
+        <Border Grid.Column="2" Style="{StaticResource Card}" Padding="16"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel>
+          <TextBlock Text="选择本次发货数量" FontSize="17" FontWeight="SemiBold"/><TextBlock Text="按销售单位配单；组合商品会按审核时的组件快照展开。" FontSize="11" Foreground="{StaticResource Muted}" Margin="0,6,0,12"/>
+          <DataGrid ItemsSource="{Binding SourceLines}" Height="150" RowHeight="37" IsReadOnly="False" IsEnabled="{Binding IsReady}"><DataGrid.Columns>
+            <DataGridTextColumn Header="销售 SKU" Binding="{Binding Source.SkuCode}" Width="130" IsReadOnly="True" ElementStyle="{StaticResource GridValue}"/>
+            <DataGridTextColumn Header="未配" Binding="{Binding Source.Remaining}" Width="65" IsReadOnly="True"/><DataGridTextColumn Header="已出" Binding="{Binding Source.Shipped}" Width="65" IsReadOnly="True"/>
+            <DataGridTextColumn Header="本次配单" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="95"/>
+          </DataGrid.Columns></DataGrid>
+          <Button Content="加入 / 更新待配单清单 ↓" Command="{Binding AddCartCommand}" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" Margin="0,12,0,16"/>
+          <TextBlock Text="待配单清单" FontSize="15" FontWeight="SemiBold"/><TextBlock Text="可加入多个订单；合包条件不符会阻止生成出库单。" Foreground="{StaticResource Muted}" FontSize="11" Margin="0,6,0,10"/>
+          <DataGrid ItemsSource="{Binding Cart}" SelectedItem="{Binding SelectedCart}" Height="155" RowHeight="37"><DataGrid.Columns><DataGridTextColumn Header="原订单号" Binding="{Binding ExternalOrderId}" Width="180" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="销售 SKU" Binding="{Binding SkuCode}" Width="130"/><DataGridTextColumn Header="数量" Binding="{Binding Quantity}" Width="70"/></DataGrid.Columns></DataGrid>
+          <WrapPanel Margin="0,12,0,0"><Button Content="生成出库单" Command="{Binding CreateCommand}" Margin="0,0,8,7"/><Button Content="移除选中" Command="{Binding RemoveCartCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,8,7"/><Button Content="清空" Command="{Binding ClearCartCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,0,7"/></WrapPanel>
+          <TextBlock Text="生成出库单只分配已有预占。确认出库时才同时扣减实物和预占。" Foreground="#37628D" FontSize="11" Margin="0,6,0,0"/>
+        </StackPanel></ScrollViewer></Border>
+      </Grid></TabItem>
+      <TabItem Header="2 · 拣货、拆合单与出库" Padding="16,9"><Grid Margin="0,12,0,0">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="0.9*"/><ColumnDefinition Width="14"/><ColumnDefinition Width="1.2*"/></Grid.ColumnDefinitions>
+        <Border Style="{StaticResource Card}" Padding="14"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+          <TextBlock Text="出库单列表" FontSize="16" FontWeight="SemiBold"/><WrapPanel Grid.Row="1" Margin="0,10,0,10"><Button Content="打开作业单 →" Command="{Binding OpenShipmentCommand}" Padding="12,8" Margin="0,0,8,6"/><Button Content="合并勾选单" Command="{Binding MergeCommand}" Style="{StaticResource SecondaryButton}" Padding="12,8" Margin="0,0,0,6"/></WrapPanel>
+          <DataGrid Grid.Row="2" ItemsSource="{Binding Shipments}" SelectedItem="{Binding SelectedShipment}" IsReadOnly="False" IsEnabled="{Binding IsReady}" RowHeight="40"><DataGrid.Columns>
+            <DataGridCheckBoxColumn Header="合" Binding="{Binding Selected, UpdateSourceTrigger=PropertyChanged}" Width="42"/>
+            <DataGridTextColumn Header="出库单号" Binding="{Binding Source.Number}" Width="190" IsReadOnly="True" ElementStyle="{StaticResource GridValue}"/>
+            <DataGridTextColumn Header="状态" Binding="{Binding Source.State, Converter={StaticResource BusinessLabel}}" Width="110" IsReadOnly="True"/>
+            <DataGridTextColumn Header="原单数" Binding="{Binding Source.OrderCount}" Width="75" IsReadOnly="True"/><DataGridTextColumn Header="收件人" Binding="{Binding Source.Recipient}" Width="100" IsReadOnly="True"/>
+          </DataGrid.Columns></DataGrid>
+          <WrapPanel Grid.Row="3" Margin="0,10,0,0"><TextBlock Text="{Binding PageText}" Foreground="{StaticResource Muted}" FontSize="11" VerticalAlignment="Center" Margin="0,0,12,5"/><Button Content="上一页" Command="{Binding PreviousCommand}" Style="{StaticResource SecondaryButton}" Padding="9,6" Margin="0,0,8,5"/><Button Content="下一页" Command="{Binding NextCommand}" Style="{StaticResource SecondaryButton}" Padding="9,6" Margin="0,0,0,5"/></WrapPanel>
+        </Grid></Border>
+        <Border Grid.Column="2" Style="{StaticResource Card}" Padding="12"><TabControl SelectedIndex="{Binding WorkTab}" BorderThickness="0" Background="White">
+          <TabItem Header="拣货复核" Padding="12,8"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="4,10,4,4">
+            <TextBlock Text="{Binding Details.Summary.Number}" FontSize="16" FontWeight="SemiBold"/><TextBlock Text="{Binding Details.Summary.State, Converter={StaticResource BusinessLabel}}" Foreground="#087E64" Margin="0,5,0,8"/><TextBlock Text="关联订单存在处理中售后，已拦截发货。请在售后中心处理。" Visibility="{Binding Details.Summary.AfterSaleHold, Converter={StaticResource BoolVisibility}}" Foreground="#A85B14" Margin="0,8"/><TextBlock Text="{Binding AddressText}" Foreground="{StaticResource Muted}" FontSize="12"/>
+            <WrapPanel Margin="0,12,0,8"><Button Content="开始拣货" Command="{Binding PickCommand}" Padding="12,8" Margin="0,0,8,6"/><Button Content="导出拣货单" Command="{Binding ExportCommand}" Style="{StaticResource SecondaryButton}" Padding="12,8" Margin="0,0,8,6"/><Button Content="作废出库单" Command="{Binding VoidCommand}" Style="{StaticResource SecondaryButton}" Padding="12,8" Margin="0,0,0,6"/></WrapPanel>
+            <DataGrid ItemsSource="{Binding Details.Checks}" Height="135" RowHeight="34" ColumnHeaderHeight="32"><DataGrid.Columns><DataGridTextColumn Header="实物 SKU" Binding="{Binding SkuCode}" Width="*" MinWidth="120"/><DataGridTextColumn Header="应拣" Binding="{Binding Required}" Width="75"/><DataGridTextColumn Header="已复核" Binding="{Binding Verified}" Width="85"/></DataGrid.Columns></DataGrid>
+            <TextBlock Text="扫描条码（内部 SKU 编码或已登记条码，回车提交）" Style="{StaticResource FieldLabel}"/>
+            <Grid IsEnabled="{Binding IsReady}"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="70"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+              <TextBox Text="{Binding ScanCode, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsPicking}"><TextBox.InputBindings><KeyBinding Key="Enter" Command="{Binding ScanCommand}"/></TextBox.InputBindings></TextBox>
+              <TextBox Grid.Column="1" Text="{Binding ScanQuantity, UpdateSourceTrigger=PropertyChanged}" Margin="7,0" ToolTip="本次扫描数量" IsEnabled="{Binding IsPicking}"/><Button Grid.Column="2" Content="复核" Command="{Binding ScanCommand}" Padding="12,8"/>
+            </Grid>
+            <WrapPanel Margin="0,10,0,6"><Button Content="完成复核并封箱" Command="{Binding PackCommand}" Padding="12,8" Margin="0,0,8,6"/><Button Content="重置复核" Command="{Binding ResetCommand}" Style="{StaticResource SecondaryButton}" Padding="12,8" Margin="0,0,0,6"/></WrapPanel>
+            <TextBlock Text="承运商与实际运单号（手工登记）" Style="{StaticResource FieldLabel}"/>
+            <ComboBox ItemsSource="{Binding CarrierOptions}" Text="{Binding Carrier, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" IsEnabled="{Binding IsReady}"/>
+            <TextBox Text="{Binding Tracking, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,8" MaxLength="64" ToolTip="实际运单号，6–64 位字母、数字、横线或下划线" IsEnabled="{Binding IsReady}"/>
+            <WrapPanel><Button Content="保存运单" Command="{Binding WaybillCommand}" Style="{StaticResource SecondaryButton}" Margin="0,0,8,6"/><Button Content="确认出库并扣账" Command="{Binding DispatchCommand}" Background="#087E64" Margin="0,0,0,6"/></WrapPanel>
+            <TextBlock Text="出库确认不可通过作废撤销。平台回传单独处理，回传失败不会重复扣减库存。" Foreground="#8D5929" FontSize="11" Margin="0,6,0,0"/>
+          </StackPanel></ScrollViewer></TabItem>
+          <TabItem Header="按数量拆单" Padding="12,8"><Grid Margin="4,12,4,4"><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+            <TextBlock Text="只允许拆分未开始拣货、未录入运单的出库单。填写拆到新包裹的数量，0 表示留在另一包；两包都须有商品。" Foreground="{StaticResource Muted}" FontSize="12" Margin="0,0,0,12"/>
+            <DataGrid Grid.Row="1" ItemsSource="{Binding SplitLines}" IsReadOnly="False" IsEnabled="{Binding IsDraft}" RowHeight="40"><DataGrid.Columns><DataGridTextColumn Header="销售 SKU" Binding="{Binding Source.SkuCode}" Width="130" IsReadOnly="True"/><DataGridTextColumn Header="原量" Binding="{Binding Source.Quantity}" Width="65" IsReadOnly="True"/><DataGridTextColumn Header="拆出数量" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="100"/><DataGridTextColumn Header="原订单号" Binding="{Binding Source.ExternalOrderId}" Width="190" IsReadOnly="True" ElementStyle="{StaticResource GridValue}"/></DataGrid.Columns></DataGrid>
+            <Button Grid.Row="2" Content="拆成两张新出库单" Command="{Binding SplitCommand}" HorizontalAlignment="Left" Margin="0,12,0,0"/>
+          </Grid></TabItem>
+          <TabItem Header="原单与轨迹" Padding="12,8"><ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="4,12,4,4">
+            <TextBlock Text="原订单行关联" FontWeight="SemiBold"/><DataGrid ItemsSource="{Binding Details.Lines}" Height="145" RowHeight="35" Margin="0,10,0,14"><DataGrid.Columns><DataGridTextColumn Header="原订单号" Binding="{Binding ExternalOrderId}" Width="190" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="原行号" Binding="{Binding ExternalLineId}" Width="90"/><DataGridTextColumn Header="数量" Binding="{Binding Quantity}" Width="70"/></DataGrid.Columns></DataGrid>
+            <TextBlock Text="操作轨迹（最新在前）" FontWeight="SemiBold"/><ItemsControl ItemsSource="{Binding Details.History}"><ItemsControl.ItemTemplate><DataTemplate><Border BorderBrush="#E4EAF2" BorderThickness="0,0,0,1" Padding="0,10"><StackPanel><TextBlock Text="{Binding Action, Converter={StaticResource BusinessLabel}}" FontWeight="SemiBold"/><TextBlock Text="{Binding Reason}" FontSize="12" Margin="0,4,0,4"/><StackPanel Orientation="Horizontal"><TextBlock Text="{Binding Actor}" FontSize="11" Foreground="{StaticResource Muted}"/><TextBlock Text="{Binding CreatedAt, StringFormat= · {0:MM-dd HH:mm:ss} UTC}" FontSize="11" Foreground="{StaticResource Muted}"/></StackPanel></StackPanel></Border></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+          </StackPanel></ScrollViewer></TabItem>
+        </TabControl></Border>
+      </Grid></TabItem>
+      <TabItem Header="3 · 平台回传队列" Padding="16,9"><Border Style="{StaticResource Card}" Padding="18" Margin="0,12,0,0"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <StackPanel Margin="0,0,0,12"><TextBlock Text="本地出库与平台确认分别跟踪" FontSize="17" FontWeight="SemiBold"/><TextBlock Text="当前未配置真实平台连接器。只凭本地出库不会标记平台成功；结果不明的任务先回查，再决定是否发送。最近 200 条任务。" Foreground="#8D5929" FontSize="12" Margin="0,8,0,0"/></StackPanel>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Jobs}" SelectedItem="{Binding SelectedJob}" RowHeight="42"><DataGrid.Columns><DataGridTextColumn Header="出库单号" Binding="{Binding ShipmentNumber}" Width="210"/><DataGridTextColumn Header="原订单号" Binding="{Binding ExternalOrderId}" Width="200" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="回传状态" Binding="{Binding State, Converter={StaticResource BusinessLabel}}" Width="140"/><DataGridTextColumn Header="尝试次数" Binding="{Binding Attempts}" Width="80"/><DataGridTextColumn Header="最近结果" Binding="{Binding LastError}" Width="300" ElementStyle="{StaticResource GridValue}"/><DataGridTextColumn Header="回执" Binding="{Binding Receipt}" Width="150"/></DataGrid.Columns></DataGrid>
+        <StackPanel Grid.Row="2" Margin="0,12,0,0"><TextBlock Text="{Binding SelectedJob.LastError}" Foreground="#8D5929" Margin="0,0,0,8"/><Button Content="重新排队 / 回查" Command="{Binding RetryDeliveryCommand}" HorizontalAlignment="Left"/></StackPanel>
+      </Grid></Border></TabItem>
+      <TabItem Header="条码登记" Padding="16,9"><Border Style="{StaticResource Card}" Padding="18" Margin="0,12,0,0"><Grid><Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <StackPanel Margin="0,0,0,12"><TextBlock Text="实物 SKU 与扫描条码" FontSize="17" FontWeight="SemiBold"/><TextBlock Text="内置 SKU 编码可直接扫描。可登记包装上的其他条码；已有条码不能改指另一 SKU。组合商品按实物组件逐一复核。" Foreground="{StaticResource Muted}" FontSize="12" Margin="0,8,0,0"/></StackPanel>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Barcodes}"><DataGrid.Columns><DataGridTextColumn Header="扫描条码" Binding="{Binding Barcode}" Width="*"/><DataGridTextColumn Header="实物 SKU" Binding="{Binding SkuCode}" Width="180"/><DataGridTextColumn Header="版本" Binding="{Binding Version}" Width="85"/></DataGrid.Columns></DataGrid>
+        <WrapPanel Grid.Row="2" Margin="0,14,0,0" IsEnabled="{Binding IsReady}"><TextBlock Text="条码" VerticalAlignment="Center" Margin="0,0,8,5"/><TextBox Text="{Binding NewBarcode, UpdateSourceTrigger=PropertyChanged}" Width="220" MaxLength="100" Margin="0,0,10,5"/><ComboBox ItemsSource="{Binding Skus}" SelectedItem="{Binding BarcodeSku}" DisplayMemberPath="SkuCode" Width="180" Margin="0,0,10,5"/><Button Content="保存条码" Command="{Binding SaveBarcodeCommand}" Margin="0,0,0,5"/></WrapPanel>
+      </Grid></Border></TabItem>
+    </TabControl>
+    <TextBlock Grid.Row="2" Text="{Binding Message}" Foreground="#37628D" FontSize="12" Margin="0,10,0,0" MaxHeight="48" ToolTip="{Binding Message}"/>
+  </Grid>
+</UserControl>

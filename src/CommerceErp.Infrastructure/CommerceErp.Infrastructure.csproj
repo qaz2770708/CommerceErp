@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup><ProjectReference Include="../CommerceErp.Core/CommerceErp.Core.csproj" /></ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Data.Sqlite"><HintPath>../../lib/sqlite/Microsoft.Data.Sqlite.dll</HintPath><Private>true</Private></Reference>
+    <Reference Include="SQLitePCLRaw.core"><HintPath>../../lib/sqlite/SQLitePCLRaw.core.dll</HintPath><Private>true</Private></Reference>
+    <Reference Include="SQLitePCLRaw.provider.e_sqlite3"><HintPath>../../lib/sqlite/SQLitePCLRaw.provider.e_sqlite3.dll</HintPath><Private>true</Private></Reference>
+    <Content Include="../../lib/sqlite/e_sqlite3.dll" Link="e_sqlite3.dll" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <EmbeddedResource Include="Migrations/**/*.sql" />
+  </ItemGroup>
+  <ItemGroup><PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" /></ItemGroup>
+  <ItemGroup><FrameworkReference Include="Microsoft.AspNetCore.App" /></ItemGroup>
+</Project>

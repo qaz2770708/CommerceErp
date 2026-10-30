@@ -1,0 +1,8 @@
+{
+  "listenAddress": "0.0.0.0",
+  "port": 5088,
+  "certificateFile": "private/server.pfx",
+  "tokenFile": "private/access-token.txt",
+  "databaseProvider": "SqlServer",
+  "sqlConnectionFile": "private/sql-connection.txt"
+}

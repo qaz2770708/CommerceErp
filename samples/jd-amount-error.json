@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "dataKind": "synthetic",
+  "tenantId": "demo-enterprise",
+  "platform": "Jd",
+  "shopId": "demo-jd-01",
+  "externalOrderId": "000900719925474099312345678901",
+  "sourceUpdatedAt": "2026-10-28T10:00:00+08:00",
+  "paymentState": "Paid",
+  "fulfillmentState": "Unfulfilled",
+  "currency": "CNY",
+  "shippingFee": 8,
+  "orderDiscount": 5,
+  "paidAmount": 110.99,
+  "lines": [
+    {
+      "externalLineId": "line-001",
+      "platformProductId": "product-100",
+      "platformSkuId": "variant-shirt",
+      "quantity": 1,
+      "goodsAmount": 89,
+      "merchantDiscount": 10
+    },
+    {
+      "externalLineId": "line-002",
+      "platformProductId": "product-200",
+      "platformSkuId": "variant-mug",
+      "quantity": 1,
+      "goodsAmount": 29,
+      "merchantDiscount": 0
+    }
+  ]
+}

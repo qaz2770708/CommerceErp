@@ -1,0 +1,12 @@
+CREATE TABLE SecurityUsers(Id TEXT PRIMARY KEY, Username TEXT NOT NULL UNIQUE, DisplayName TEXT NOT NULL,
+ Role TEXT NOT NULL, TenantId TEXT NOT NULL REFERENCES Tenants(Id), Enabled INTEGER NOT NULL CHECK(Enabled IN(0,1)),
+ Version INTEGER NOT NULL, MustChangePassword INTEGER NOT NULL CHECK(MustChangePassword IN(0,1)), PasswordHash TEXT NOT NULL,
+ FailedAttempts INTEGER NOT NULL DEFAULT 0, LockedUntil TEXT, CreatedAt TEXT NOT NULL);
+CREATE TABLE SecurityUserShops(UserId TEXT NOT NULL REFERENCES SecurityUsers(Id), ShopId TEXT NOT NULL, PRIMARY KEY(UserId,ShopId));
+CREATE TABLE SecurityUserWarehouses(UserId TEXT NOT NULL REFERENCES SecurityUsers(Id), WarehouseId TEXT NOT NULL, PRIMARY KEY(UserId,WarehouseId));
+CREATE TABLE SecuritySessions(TokenHash TEXT PRIMARY KEY, UserId TEXT NOT NULL REFERENCES SecurityUsers(Id), UserVersion INTEGER NOT NULL,
+ ExpiresAt TEXT NOT NULL, Revoked INTEGER NOT NULL DEFAULT 0 CHECK(Revoked IN(0,1)));
+CREATE INDEX IX_SecuritySessions_User ON SecuritySessions(UserId);
+CREATE TABLE SecurityOperationOwners(OperationId TEXT PRIMARY KEY, UserId TEXT NOT NULL REFERENCES SecurityUsers(Id));
+CREATE TABLE SecurityAudit(Id INTEGER PRIMARY KEY AUTOINCREMENT, ActorId TEXT NOT NULL, ActorName TEXT NOT NULL, Action TEXT NOT NULL,
+ Resource TEXT NOT NULL, Outcome TEXT NOT NULL, OperationId TEXT NOT NULL, CreatedAt TEXT NOT NULL, Reason TEXT NOT NULL);

@@ -1,0 +1,179 @@
+{
+  "passed": true,
+  "total": 43,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "正式工作区无演示店铺商品库存且身份唯一",
+      "passed": true
+    },
+    {
+      "name": "企业和仓库更新保留身份且旧版本被拒绝",
+      "passed": true
+    },
+    {
+      "name": "空店铺时可建立管理员，新店铺自动加入管理员范围",
+      "passed": true
+    },
+    {
+      "name": "店铺唯一性、标识不可改和停用控制",
+      "passed": true
+    },
+    {
+      "name": "商品新增不增库存，条码独立维护",
+      "passed": true
+    },
+    {
+      "name": "组合商品仅允许启用普通组件并校验自引用与数量",
+      "passed": true
+    },
+    {
+      "name": "商品版本和名称变更保留历史，引用后不能改单位结构",
+      "passed": true
+    },
+    {
+      "name": "多个消费者重复新增请求只产生一个SKU和一条历史",
+      "passed": true
+    },
+    {
+      "name": "映射预览不写库，内容变更及重复键阻断",
+      "passed": true
+    },
+    {
+      "name": "映射批次遇到错误行全部拒绝，跨工作区标识被拒绝",
+      "passed": true
+    },
+    {
+      "name": "映射提交重新核对版本，原操作号重放不增版本",
+      "passed": true
+    },
+    {
+      "name": "期初保存不入账，审核后一次形成余额流水及事件",
+      "passed": true
+    },
+    {
+      "name": "期初审核前余额或SKU版本变化会阻断",
+      "passed": true
+    },
+    {
+      "name": "期初多行中途故障整单回滚，恢复后原请求只入账一次",
+      "passed": true
+    },
+    {
+      "name": "并发审核同一SKU的不同期初单只有一份入账",
+      "passed": true
+    },
+    {
+      "name": "正式人工订单与动态店铺仓库贯通，演示订单被拒绝",
+      "passed": true
+    },
+    {
+      "name": "映射改向和停用不追改已审核快照及预占",
+      "passed": true
+    },
+    {
+      "name": "后台健康保留失败和恢复状态并检测过期租约",
+      "passed": true
+    },
+    {
+      "name": "通用事件连接器忽略取消时仍有等待上限",
+      "passed": true
+    },
+    {
+      "name": "7到9升级保留业务、账号、库身份和历史",
+      "passed": true
+    },
+    {
+      "name": "发货连接器忽略取消仍会超时，五次未知后停下并可人工恢复",
+      "passed": true
+    },
+    {
+      "name": "动态仓库未出库取消释放预占且库身份保持",
+      "passed": true
+    },
+    {
+      "name": "正式商品出库退货退款对账导出贯通且保持动态企业仓库",
+      "passed": true
+    },
+    {
+      "name": "待映射清单可发现新增异常订单且停用映射重新出现",
+      "passed": true
+    },
+    {
+      "name": "期初草稿编辑版本、重放、作废和审核保护",
+      "passed": true
+    },
+    {
+      "name": "已审核期初不能编辑或作废",
+      "passed": true
+    },
+    {
+      "name": "配置缺失阻断且无账号不能变更策略",
+      "passed": true
+    },
+    {
+      "name": "商品映射期初分页稳定、不重复且筛选与边界有效",
+      "passed": true
+    },
+    {
+      "name": "待映射查询覆盖500单以前异常且支持分页",
+      "passed": true
+    },
+    {
+      "name": "8到9迁移独立保存审核配置、单据锁定与平台行索引",
+      "passed": true
+    },
+    {
+      "name": "持久平台行索引随更正与取消同步，整单失败回滚索引",
+      "passed": true
+    },
+    {
+      "name": "维护上下文限量并可按需解析第50项以外商品与组件",
+      "passed": true
+    },
+    {
+      "name": "HTTP正式工作区无样例且协议和身份正确",
+      "passed": true
+    },
+    {
+      "name": "HTTP主数据重复请求不重复创建并记录真实账号",
+      "passed": true
+    },
+    {
+      "name": "HTTP期初建单审核与幂等回执",
+      "passed": true
+    },
+    {
+      "name": "HTTP客服不能读写主数据与期初审核或查看全局健康",
+      "passed": true
+    },
+    {
+      "name": "HTTP新增店铺不自动扩张客服范围",
+      "passed": true
+    },
+    {
+      "name": "HTTP不同账号不能接管已处理操作号",
+      "passed": true
+    },
+    {
+      "name": "HTTP双人审核拒绝制单人、修改人，另一管理员可审核",
+      "passed": true
+    },
+    {
+      "name": "HTTP编辑人也不能审核且管理员分页正常",
+      "passed": true
+    },
+    {
+      "name": "HTTP分页与新命令对非管理员拒绝访问",
+      "passed": true
+    },
+    {
+      "name": "HTTP策略放宽须独立批准且不能降低既有严格单据要求",
+      "passed": true
+    },
+    {
+      "name": "HTTP制单审核策略角色分离与跨店商品搜索隔离",
+      "passed": true
+    }
+  ]
+}
